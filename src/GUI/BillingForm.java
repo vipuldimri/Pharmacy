@@ -1,7 +1,34 @@
 package GUI;
+import DataStructure.Trie;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.AbstractAction;
+import javax.swing.DefaultListModel;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JList;
+import javax.swing.JTable;
+import javax.swing.KeyStroke;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+import static jdk.nashorn.internal.objects.NativeRegExp.source;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRTableModelDataSource;
+import net.sf.jasperreports.view.JasperViewer;
 public class BillingForm extends javax.swing.JFrame 
 {
     
@@ -18,12 +45,43 @@ public class BillingForm extends javax.swing.JFrame
         
         
         this.MainScreen = MainScreen;
+     
+       
+       
+           DefaultTableModel m = (DefaultTableModel) jTable2.getModel();
+        m.setRowCount(0);
+        
+        
+        DefaultTableModel  mode2 = (DefaultTableModel) jTable2.getModel();
+        Object row[] = new Object[1];
+        row[0]= "vipul";
+        mode2.addRow(row);
+          row[0]= "vaibava";
+        mode2.addRow(row);
+          row[0]= "rahul";
+        mode2.addRow(row);
+          row[0]= "keshav";
+        mode2.addRow(row);
+          row[0]= "dipanshu";
+        mode2.addRow(row);
+        row[0]= "hitesh";
+        mode2.addRow(row);
+        
+        DefaultTableModel  mode22 = (DefaultTableModel) jTable1.getModel();
+        Object row2[] = new Object[2];
+        row2[0]= "vipul";
+        row2[1] = "dimri";
+        mode22.addRow(row2);
+     
+        
+        
+         
+         createKeybindings(jTable2);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -36,17 +94,19 @@ public class BillingForm extends javax.swing.JFrame
         jTextField10 = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         jTextField9 = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jTextField12 = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jTextField11 = new javax.swing.JTextField();
         jPanel8 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        jTable2 = new javax.swing.JTable();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        Bill_Button = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -63,26 +123,11 @@ public class BillingForm extends javax.swing.JFrame
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 102, 51));
-        jPanel1.setPreferredSize(new java.awt.Dimension(835, 100));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 965, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(jPanel1, java.awt.BorderLayout.NORTH);
-
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.PAGE_AXIS));
 
-        jPanel3.setBackground(new java.awt.Color(0, 255, 153));
+        jPanel3.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel3.setPreferredSize(new java.awt.Dimension(1924, 120));
         jPanel3.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 20, 20));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -125,13 +170,22 @@ public class BillingForm extends javax.swing.JFrame
         jTextField9.setPreferredSize(new java.awt.Dimension(180, 35));
         jPanel3.add(jTextField9);
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel4.setText("Doctor Name");
+        jPanel3.add(jLabel4);
+
+        jTextField12.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jTextField12.setPreferredSize(new java.awt.Dimension(180, 35));
+        jPanel3.add(jTextField12);
+
         jPanel2.add(jPanel3);
 
         jPanel4.setPreferredSize(new java.awt.Dimension(835, 500));
         jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.PAGE_AXIS));
 
-        jPanel9.setBackground(new java.awt.Color(204, 0, 204));
-        jPanel9.setPreferredSize(new java.awt.Dimension(820, 150));
+        jPanel9.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel9.setPreferredSize(new java.awt.Dimension(820, 70));
+        jPanel9.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel14.setText("Search");
@@ -139,42 +193,58 @@ public class BillingForm extends javax.swing.JFrame
 
         jTextField11.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jTextField11.setPreferredSize(new java.awt.Dimension(300, 50));
+        jTextField11.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField11KeyReleased(evt);
+            }
+        });
         jPanel9.add(jTextField11);
 
         jPanel4.add(jPanel9);
 
         jPanel8.setBackground(new java.awt.Color(153, 153, 0));
-        jPanel8.setPreferredSize(new java.awt.Dimension(835, 200));
+        jPanel8.setPreferredSize(new java.awt.Dimension(835, 300));
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        jTable2.setAutoCreateRowSorter(true);
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Title 1"
+            }
+        ));
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable2MouseClicked(evt);
+            }
         });
-        jScrollPane2.setViewportView(jList1);
+        jTable2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTable2KeyPressed(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTable2);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 965, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE)
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
         );
 
         jPanel4.add(jPanel8);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "col1", "col2"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -183,17 +253,17 @@ public class BillingForm extends javax.swing.JFrame
 
         jPanel2.add(jPanel4);
 
-        jPanel5.setBackground(new java.awt.Color(255, 153, 102));
+        jPanel5.setBackground(new java.awt.Color(102, 102, 102));
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/bill.png"))); // NOI18N
-        jButton1.setText("Bill");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        Bill_Button.setBackground(new java.awt.Color(255, 255, 255));
+        Bill_Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/bill.png"))); // NOI18N
+        Bill_Button.setText("Bill");
+        Bill_Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                Bill_ButtonActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton1);
+        jPanel5.add(Bill_Button);
 
         jButton2.setBackground(new java.awt.Color(255, 255, 255));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Clear.png"))); // NOI18N
@@ -260,9 +330,20 @@ public class BillingForm extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void Bill_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bill_ButtonActionPerformed
+        // TODO add your handling code here:Bill Button event
+        
+     Map params = new HashMap();
+
+JRDataSource dataSource = new JRTableModelDataSource(jTable1.getModel());
+JasperPrint print = null;
+        try {
+            print = JasperFillManager.fillReport("newReport.jasper", params, dataSource);
+        } catch (JRException ex) {
+            Logger.getLogger(BillingForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+JasperViewer.viewReport(print, true); // true == Exit on Close  
+    }//GEN-LAST:event_Bill_ButtonActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
@@ -273,11 +354,67 @@ public class BillingForm extends javax.swing.JFrame
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-         MainScreen.setVisible(true);
+        MainScreen.setVisible(true);
         dispose();
         setVisible(false);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void jTextField11KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField11KeyReleased
+        // TODO add your handling code here:
+        /*Trie trie = new Trie();
+          //list1.removeAll();
+        String word = jTextField11.getText();
+        ArrayList<String> list = new ArrayList<>();
+        trie.AutoComplete(word.trim(), list);
+
+         list.forEach((food) -> 
+         {
+              //list1.add(food);
+         });*/
+        filtertable(jTextField11.getText().toLowerCase());
+        
+    }//GEN-LAST:event_jTextField11KeyReleased
+
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+        // TODO add your handling code here:
+        
+        System.out.println("Mouse Clicked");
+    }//GEN-LAST:event_jTable2MouseClicked
+
+    private void jTable2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable2KeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER)
+        { 
+            System.out.println("Enetr preswsed");
+        }
+        
+        return;
+    }//GEN-LAST:event_jTable2KeyPressed
+
+    public void filtertable(String query)
+    {
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<>((DefaultTableModel) jTable2.getModel());
+        jTable2.setRowSorter(tr);
+        
+        tr.setRowFilter(RowFilter.regexFilter(query));
+        
+        
+        
+    }
+    private void createKeybindings(JTable table)
+    {
+    table.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "Enter");
+    table.getActionMap().put("Enter", new AbstractAction() {
+        @Override
+        public void actionPerformed(ActionEvent ae)
+        {
+            //do something on JTable enter pressed
+            System.out.println("here");
+        }
+
+      
+    });
+}
     /**
      * @param args the command line arguments
      */
@@ -314,7 +451,7 @@ public class BillingForm extends javax.swing.JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton Bill_Button;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -324,16 +461,15 @@ public class BillingForm extends javax.swing.JFrame
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -345,9 +481,11 @@ public class BillingForm extends javax.swing.JFrame
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
+    private javax.swing.JTextField jTextField12;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bc82fbda-3814-4912-802d-8740a3afe6d1">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<parameter name="parameter1" class="JRBeanCollectionDataSource"/>
+	<field name="col1" class="java.lang.String"/>
+	<field name="col2" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="399" y="13" width="126" height="66" uuid="4e46ef0a-f235-4f2b-be13-e41536507f5a"/>
+				<imageExpression><![CDATA["C:\\Users\\u20o90\\Documents\\NetBeansProjects\\GameCenter\\src\\Images\\StarkLogo.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="51" y="23" width="200" height="20" uuid="817f3092-3963-4da1-9515-e080712e92c0"/>
+				<text><![CDATA[Daiura Pharmacy Private Limited]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="51" y="59" width="100" height="20" uuid="cf42fe99-2553-45c2-8eca-e67c24923c69"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="43" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<textField>
+				<reportElement x="187" y="31" width="112" height="20" uuid="bfbe169f-f405-4f0c-9957-131e8813e05b"/>
+				<textFieldExpression><![CDATA[$F{col2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="54" y="31" width="119" height="20" uuid="c30cd471-6a63-4a4b-86fe-debfbe544dbf"/>
+				<textFieldExpression><![CDATA[$F{col1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement x="245" y="14" width="100" height="20" uuid="201b0d4b-d7f0-4c1d-a862-afe3b65884e3"/>
+				<text><![CDATA[Thank You]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>
